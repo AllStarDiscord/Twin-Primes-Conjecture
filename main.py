@@ -1,7 +1,8 @@
 import sys
 import time
+import csv
 
-print('Generating full prime List up to 10000000')
+print('Generating full prime List up to 1000000')
 start_time=time.time()
 primeList=[]
 def SieveOfEratosthenes(n):
@@ -19,7 +20,7 @@ def SieveOfEratosthenes(n):
         if prime[p]:
             primeList.append(p)
     return primeList
-primeList=SieveOfEratosthenes(10000000)
+primeList=SieveOfEratosthenes(1000000)
 end_time=time.time()
 time_lapsed=end_time - start_time
 #print(primeList)
@@ -30,6 +31,8 @@ if start==('1'):
   for i in range(1,len(primeList)):
     if primeList[i]+2==primeList[i+1]:
       print(str(primeList[i])+' and '+str(primeList[i+1])+' are twin primes.')
+  stop=input('Done. Enter anything to exit.')
+  sys.exit()
 if start==('2'):
   x=int(input('What number to start at?'))
   y=int(input('What number to end at?'))
@@ -38,5 +41,18 @@ if start==('2'):
       if i==primeList[j] and i+2==primeList[j+1]:
         print(str(primeList[j])+' and '+str(primeList[j+1])+' are twin primes.')
         break
+  stop=input('Done. Enter anything to exit.')
+  sys.exit()
+if start==('3'):
+  print('Starting super secret analysis mode.')
+  with open('main.csv','w',newline='') as csv_file:
+    csv_writer=csv.writer(csv_file)
+    for i in range(1,10000):
+      if primeList[i]+2==primeList[i+1]:
+        csv_writer.writerow([primeList[i]%10,primeList[i+1]%10])
+  stop=input('Done. Enter anything to exit.')
+  sys.exit()  
 else:
-  
+    print('Please try again and enter a 1 or a 2.')
+    stop=input('Enter Anything to exit.')
+    sys.exit()
